@@ -45,11 +45,13 @@
                 background_normal: 'images/buttons/off/blank.png'
                 background_down: 'images/buttons/on/blank.png'
                 id: blank 
+                on_state: app.controller.turn_on_blank() if (self.state == 'down') else app.controller.turn_off_blank()
                 state: 'down' if app.image.blanked else 'normal'
             ToggleButton:
                 background_normal: 'images/buttons/off/freeze.png'
                 background_down: 'images/buttons/on/freeze.png'
                 id: freeze
+                on_state: app.controller.turn_on_freeze() if (self.state == 'down') else app.controller.turn_off_freeze()
                 state: 'down' if app.image.frozen else 'normal'
         # Input
         BoxLayout:
@@ -99,12 +101,21 @@
                 cursor_height: 21
                 cursor_image: 'images/slider/cursor.png'
                 cursor_width: 21
+                id: volume
+                min: 0
+                max: 100
+                on_value: app.sound.set_volume(int(self.value))
                 orientation: 'vertical'
                 size_hint: 1, 0.66
+                step: 1
+                value: app.sound.volume
                 value_track: True
                 value_track_color: [0, 0, 0, 1]
             ToggleButton:
                 background_normal: 'images/buttons/off/mute.png'
                 background_down: 'images/buttons/on/unmute.png'
+                id: mute
+                on_state: app.sound.set_mute() if (self.state == 'down') else app.sound.unset_mute()
                 size_hint: 1, 0.17
+                state: 'down' if app.sound.mute else 'normal'
             #size_hint: None, None
