@@ -27,10 +27,12 @@
                 id: display_label
                 #size: 172, 66
                 #size_hint: None, None
-            ToggleButton:
+            PowerButton:
                 background_normal: 'images/buttons/off/projectoron.png'
                 background_down: 'images/buttons/on/projectoron.png'
-                id: power_on
+                id: power
+                on_state: self.start_projector() if (self.state == "down") else self.stop_projector()
+                state: 'down' if app.projector.power_state == True else 'normal'
                 #size: 172, 66
                 #size_hint: None, None
             ToggleButton:

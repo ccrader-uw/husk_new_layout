@@ -35,14 +35,64 @@ match operating_system:
     case _:
         Exception("Not a supported OS")
 
-class DefaultButton(ToggleButton):
+class PowerButton(ToggleButton):
     """
     Describes the default settings for buttons in Huskontroller.
     """
     def __init__(self, **kwargs):
-        super(DefaultButton, self).__init__(**kwargs)
+        super(PowerButton, self).__init__(**kwargs)
+        self.app = App.get_running_app()
+
+    def call_unset_blank(self, timer):
+        self.app.image.unset_blank()
+
+    def call_unset_freeze(self, timer):
+        self.app.image.unset_freeze()
 
 
+class PowerOnButton(PowerButton):
+    def start_projector(self):
+        threading.Thread(target=self.app.controller.turn_on_projector, daemon=True).start()
+        power_on_message = PowerPopup()
+        power_on_message.open()
+        Clock.schedule_once(self.call_unset_blank, 10)
+        Clock.schedule_once(self.call_unset_freeze, 10)
+
+
+class PowerOffButton(PowerButton):
+    def stop_projector(self):
+        Clock.schedule_once(self.call_unset_blank, 1)
+        Clock.schedule_once(self.call_unset_freeze, 1)
+        threading.Thread(target=self.app.controller.turn_off_projector, daemon=True).start()
+
+
+class PowerPopup(Popup):
+    def __init__(self, on_off_text="on", **kwargs):
+        super(PowerPopup, self).__init__(**kwargs)
+        self.app = App.get_running_app()
+        self.auto_dismiss = False
+        self.background = ''
+        self.background_color = (232/255, 211/255, 162/255, 1)
+        self.on_off_text = on_off_text
+        self.seconds = self.app.controller.PROJECTOR_WAIT
+        self.separator_color = [50/255, 0/255, 110/255, 1]
+        self.size_hint = (0.9, 0.9)
+        self.title = 'Projector'
+        self.title_align = 'center'
+        self.title_color = [0, 0, 0, 1]
+        self.title_font = './fonts/open_sans_regular.ttf'
+        self.title_size = '36sp'
+        self.message = f"Powering {self.on_off_text}.\nInterface available in {self.seconds} seconds."
+        self.content = Label(text=self.message, color=[0, 0, 0, 1], font_size='24sp', halign='center')
+
+        Clock.schedule_interval(self.update_message, 1)
+
+    def update_message(self, seconds):
+        self.seconds -= 1
+        if self.seconds == 0:
+            self.dismiss()
+        else:
+            self.content.text = f"Powering {self.on_off_text}.\nInterface available in {self.seconds} seconds."
 
 class TouchPanel(FloatLayout):
     def __init__(self, **kwargs):
