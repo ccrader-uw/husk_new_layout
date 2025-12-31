@@ -7,27 +7,78 @@
             size: self.size
             source: 'images/background.png' 
     # Controls
-    Label:
-        pos: 25, 350
-        size: 172, 66
+    BoxLayout:
+        cols: 3
+        orientation: 'horizontal'
+        pos: 20, 50
+        rows: 5
+        size: 560, 400
         size_hint: None, None
-        text: 'Display'
-#    Button:
-#        size_hint: None, None
-#    Button:
-#        size_hint: None, None
-#    Button:
-#        size_hint: None, None
-#    # Input buttons
-#    Label:
-#        size_hint: None, None
-#        text: 'Input'
-#    Button:
-#    Button:
-#    Button:
-#    # Audio slider and Mute
-#    Label:
-#        text: 'Audio'
-#    Slider:
-#    Button:
-#    Button:
+        spacing: 20
+        BoxLayout:
+            spacing: 20
+            orientation: 'vertical'
+            Button:
+                background_normal: 'images/labels/display-label.png'
+                background_down: 'images/labels/display-label.png'
+                #size: 172, 66
+                #size_hint: None, None
+            ToggleButton:
+                background_normal: 'images/buttons/off/projectoron.png'
+                background_down: 'images/buttons/on/projectoron.png'
+                #size: 172, 66
+                #size_hint: None, None
+            ToggleButton:
+                background_normal: 'images/buttons/off/projectoroff.png'
+                background_down: 'images/buttons/on/projectoroff.png'
+                #size: 172, 66
+                #size_hint: None, None
+            ToggleButton:
+                background_normal: 'images/buttons/off/blank.png'
+                background_down: 'images/buttons/on/blank.png'
+                #size: 172, 66
+                #size_hint: None, None
+            ToggleButton:
+                background_normal: 'images/buttons/off/freeze.png'
+                background_down: 'images/buttons/on/freeze.png'
+                #size: 172, 66
+        # Input
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 20
+            Button:
+                background_normal: 'images/labels/input-label.png'
+                background_down: 'images/labels/input-label.png'
+            ToggleButton:
+                background_normal: 'images/buttons/off/podium.png'
+                background_down: 'images/buttons/on/podium.png'
+            ToggleButton:
+                background_normal: 'images/buttons/off/usbc.png'
+                background_down: 'images/buttons/on/usbc.png'
+            ToggleButton:
+                background_normal: 'images/buttons/off/hdmi.png'
+                background_down: 'images/buttons/on/hdmi.png'
+            ToggleButton:
+                background_normal: 'images/buttons/off/vga.png'
+                background_down: 'images/buttons/on/vga.png'
+        # Audio
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 20
+            Button:
+                background_normal: 'images/labels/audio-label.png'
+                background_down: 'images/labels/audio-label.png'
+                size_hint: 1, 0.17
+            Slider:
+                cursor_height: 21
+                cursor_image: 'images/slider/cursor.png'
+                cursor_width: 21
+                orientation: 'vertical'
+                size_hint: 1, 0.66
+                value_track: True
+                value_track_color: [0, 0, 0, 1]
+            ToggleButton:
+                background_normal: 'images/buttons/off/mute.png'
+                background_down: 'images/buttons/on/unmute.png'
+                size_hint: 1, 0.17
+            #size_hint: None, None
