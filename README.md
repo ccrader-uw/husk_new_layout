@@ -1,5 +1,5 @@
 # Huskontroller2
-This is just [Huskontroller2](https://github.com/arcorion/huskontroller2/tree/main) with the GUI changed. I probably should've just made a release of that and continued working on it, but I was rushed and didn't think clearly.
+This is just [Huskontroller2](https://github.com/arcorion/huskontroller2/tree/main) with the GUI changed. I probably should've just forked this until I was done instead of making a new repo, but I was rushed and didn't think of that.
 
 This is a utility which provides a user interface for the AV systems used with the UW Communications classrooms. This is the second version of the controller, written to improve expandability.
 
