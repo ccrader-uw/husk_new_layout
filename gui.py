@@ -23,6 +23,9 @@ import platform, threading
 
 from components.sound import Sound
 
+UNSELECTED_OPACITY = 0.6
+SELECTED_OPACITY = 1.0
+
 operating_system = platform.system()
 match operating_system:
     case 'Linux':
@@ -39,13 +42,13 @@ match operating_system:
 class HuskyButton(ToggleButton):
 	def __init__(self, **kwargs):
 		super(HuskyButton, self).__init__(**kwargs)
-		self.opacity = 0.8
+		self.opacity = UNSELECTED_OPACITY
 
 	def on_state(self, *args):
 		if self.state == 'normal':
-			self.opacity = 0.8
+			self.opacity = UNSELECTED_OPACITY
 		else:
-			self.opacity = 1.0
+			self.opacity = SELECTED_OPACITY
 
 class InputButton(HuskyButton):
     def __init__(self, **kwargs):
@@ -59,19 +62,19 @@ class MuteButton(ToggleButton):
 
     def on_state(self, *args):
         if self.state == 'normal':
-            self.opacity = 1.0
+            self.opacity = SELECTED_OPACITY
         else:
-            self.opacity = 0.8
+            self.opacity = UNSELECTED_OPACITY
     
     def change_state(self, app):
         if (self.state == 'down'):
             app.sound.set_mute()
-            app.root.ids.audio_label.opacity = 0.5
-            app.root.ids.volume.opacity = 0.5
+            app.root.ids.audio_label.opacity = UNSELECTED_OPACITY
+            app.root.ids.volume.opacity = UNSELECTED_OPACITY
         else:
             app.sound.unset_mute()
-            app.root.ids.audio_label.opacity = 1.0
-            app.root.ids.volume.opacity = 1.0
+            app.root.ids.audio_label.opacity = SELECTED_OPACITY
+            app.root.ids.volume.opacity = SELECTED_OPACITY
 
 
 class PowerButton(HuskyButton):
