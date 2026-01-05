@@ -23,7 +23,7 @@ import platform, threading
 
 from components.sound import Sound
 
-UNSELECTED_OPACITY = 0.6
+UNSELECTED_OPACITY = 0.7
 SELECTED_OPACITY = 1.0
 
 operating_system = platform.system()
