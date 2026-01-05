@@ -35,7 +35,19 @@ match operating_system:
     case _:
         Exception("Not a supported OS")
 
-class InputButton(ToggleButton):
+
+class HuskyButton(ToggleButton):
+	def __init__(self, **kwargs):
+		super(HuskyButton, self).__init__(**kwargs)
+		self.opacity = 0.8
+
+	def on_state(self, *args):
+		if self.state == 'normal':
+			self.opacity = 0.8
+		else:
+			self.opacity = 1.0
+
+class InputButton(HuskyButton):
     def __init__(self, **kwargs):
         super(InputButton, self).__init__(**kwargs)
         self.allow_no_selection = False
@@ -44,6 +56,12 @@ class InputButton(ToggleButton):
 class MuteButton(ToggleButton):
     def __init__(self, **kwargs):
         super(MuteButton, self).__init__(**kwargs)
+
+    def on_state(self, *args):
+        if self.state == 'normal':
+            self.opacity = 1.0
+        else:
+            self.opacity = 0.8
     
     def change_state(self, app):
         if (self.state == 'down'):
@@ -56,7 +74,7 @@ class MuteButton(ToggleButton):
             app.root.ids.volume.opacity = 1.0
 
 
-class PowerButton(ToggleButton):
+class PowerButton(HuskyButton):
     """
     Describes the default settings for buttons in Huskontroller.
     """
